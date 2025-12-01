@@ -9,8 +9,12 @@ public class Acceso {
     public static Connection getConexion() {
         Connection cn;
         try {
+            String url = "jdbc:mysql://buarfnvcold45c8vatsq-mysql.services.clever-cloud.com:3306/buarfnvcold45c8vatsq?useSSL=true&requireSSL=true";
+            String user = "unxm4pumtkyd1f5l";
+            String password = "BE1bLWhFcaZ3eL0A7Dxa";
+
             Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/final", "root", "");
+            cn = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException e) {
             cn = null;
         } catch (SQLException e) {
@@ -101,3 +105,4 @@ public class Acceso {
     }
 
 }
+
