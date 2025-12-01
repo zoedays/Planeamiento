@@ -13,7 +13,7 @@ public class Acceso {
             String user = "unxm4pumtkyd1f5l";
             String password = "BE1bLWhFcaZ3eL0A7Dxa";
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             cn = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException e) {
             cn = null;
@@ -105,4 +105,5 @@ public class Acceso {
     }
 
 }
+
 
