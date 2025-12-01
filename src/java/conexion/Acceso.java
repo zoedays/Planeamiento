@@ -7,9 +7,9 @@ import java.util.List;
 public class Acceso {
 
     public static Connection getConexion() {
-        Connection cn;
+        Connection cn = null;
         try {
-           String url = "jdbc:mysql://buarfnvcold45c8vatsq-mysql.services.clever-cloud.com:3306/buarfnvcold45c8vatsq?useSSL=true&requireSSL=true";
+            String url = "jdbc:mysql://buarfnvcold45c8vatsq-mysql.services.clever-cloud.com:3306/buarfnvcold45c8vatsq?useSSL=false&requireSSL=false&serverTimezone=UTC";
             String user = "unxm4pumtkyd1f5l";
             String password = "BE1bLWhFcaZ3eL0A7Dxa";
 
@@ -17,6 +17,7 @@ public class Acceso {
             cn = DriverManager.getConnection(url, user, password);
 
             System.out.println("Conexión exitosa");
+
         } catch (ClassNotFoundException e) {
             System.err.println("Driver JDBC no encontrado: " + e.getMessage());
         } catch (SQLException e) {
@@ -24,8 +25,10 @@ public class Acceso {
         } catch (Exception e) {
             System.err.println("Error general: " + e.getMessage());
         }
+
         return cn;
     }
+
 
     public static String ejecutar(String sql) {
         String msg = null;
@@ -49,7 +52,7 @@ public class Acceso {
         try {
             Connection cn = getConexion();
             if (cn == null) {
-                lista = null;
+                return null;
             } else {
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
@@ -65,35 +68,36 @@ public class Acceso {
                 cn.close();
             }
         } catch (SQLException e) {
-            lista = null;
+            return null;
         }
         return lista;
     }
 
     public static Object[] buscar(String sql) {
-        Object[] fila = null;
         List lista = listar(sql);
-        if (lista != null) {
-            for (int i = 0; i < lista.size(); i++) {
-                fila = (Object[]) lista.get(i);
-            }
+        if (lista != null && !lista.isEmpty()) {
+            return (Object[]) lista.get(0);
         }
-        return fila;
+        return null;
     }
 
     public static String getNum(String sql) {
-        String numGen;
-        String numObt = null;
+        String numGen = null;
         try {
             Connection cn = getConexion();
             if (cn == null) {
-                numGen = null;
-            } else {
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while (rs.next()) {
-                    numObt = rs.getString(1);
-                }
+                return null;
+            }
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            String numObt = null;
+
+            while (rs.next()) {
+                numObt = rs.getString(1);
+            }
+
+            if (numObt != null && numObt.length() >= 2) {
                 String parInt = numObt.substring(2);
                 String parStr = numObt.substring(0, 1);
                 String nueParInt = String.valueOf(Integer.parseInt(parInt) + 1);
@@ -102,12 +106,17 @@ public class Acceso {
                 }
                 numGen = parStr + nueParInt;
             }
+
+            cn.close();
+
         } catch (SQLException e) {
-            numGen = null;
+            return null;
         }
+
         return numGen;
     }
-
 }
+
+
 
 
