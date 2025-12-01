@@ -9,7 +9,7 @@ public class Acceso {
     public static Connection getConexion() {
         Connection cn = null;
         try {
-            String url = "jdbc:mysql://buarfnvcold45c8vatsq-mysql.services.clever-cloud.com:3306/buarfnvcold45c8vatsq?useSSL=true&requireSSL=true";
+            String url = "jdbc:mysql://buarfnvcold45c8vatsq-mysql.services.clever-cloud.com:3306/buarfnvcold45c8vatsq?useSSL=false";
             String user = "unxm4pumtkyd1f5l";
             String password = "BE1bLWhFcaZ3eL0A7Dxa";
 
@@ -109,3 +109,4 @@ public class Acceso {
     }
 
 }
+
