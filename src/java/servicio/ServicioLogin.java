@@ -7,7 +7,7 @@ import entidad.Usuario;
 
 public class ServicioLogin {
     public static Usuario loginUsuario(String username, String pass){
-        Usuario log = new Usuario(username, Encriptacion.encode(pass));
+        Usuario log = new Usuario(username,pass);
         Object[]ua = DaoLogin.login(log);
         Usuario usuAut;
         if (ua!=null) {
@@ -18,3 +18,4 @@ public class ServicioLogin {
         return usuAut;
     }
 }
+
